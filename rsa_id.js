@@ -1,17 +1,17 @@
 
-IdNumberParser.prototype.computeGender  = function(genderDigit)
+RsaId.prototype.computeGender  = function(genderDigit)
 {
-  if ( genderDigit < 5) return IdNumberParser.GenderEnum.FEMALE;
-  if ( genderDigit > 4) return IdNumberParser.GenderEnum.MALE;
+  if ( genderDigit < 5) return RsaId.GenderEnum.FEMALE;
+  if ( genderDigit > 4) return RsaId.GenderEnum.MALE;
 }
 
-IdNumberParser.prototype.computeCitizenShip  = function(citizenShipDigit)
+RsaId.prototype.computeCitizenShip  = function(citizenShipDigit)
 {
-  if ( citizenShipDigit == 0) return IdNumberParser.CitizenShipEnum.SA_CITIZEN
-  return IdNumberParser.CitizenShipEnum.OTHER;
+  if ( citizenShipDigit == 0) return RsaId.CitizenShipEnum.SA_CITIZEN
+  return RsaId.CitizenShipEnum.OTHER;
 }
 
-IdNumberParser.prototype.parse = function()
+RsaId.prototype.parse = function()
 {
     if ( this.idNumber.length < 13)
     {
@@ -33,7 +33,7 @@ IdNumberParser.prototype.parse = function()
 
 }
 
-IdNumberParser.prototype.calcCheckDigit = function()
+RsaId.prototype.calcCheckDigit = function()
 {
   var oddSum = 0;
   [0,2,4,6,8,10].forEach(
@@ -65,7 +65,7 @@ IdNumberParser.prototype.calcCheckDigit = function()
   return checkDigit
 }
 
-IdNumberParser.prototype.isValid = function()
+RsaId.prototype.isValid = function()
 {
   if ( this.controlType != 8 && this.controlType != 9)
   {
@@ -80,7 +80,7 @@ IdNumberParser.prototype.isValid = function()
   return false;
 }
 
-IdNumberParser.prototype.toString  = function()
+RsaId.prototype.toString  = function()
 {
   str ="ID NUMBER        :"+this.idNumber+"\n";
   str+="GENDER           :"+this.gender+"\n";
@@ -95,14 +95,14 @@ IdNumberParser.prototype.toString  = function()
   return str;
 }
 
-function IdNumberParser(idNumber) {
+function RsaId(idNumber) {
 
-  IdNumberParser.GenderEnum = {
+  RsaId.GenderEnum = {
     MALE: 1,
     FEMALE: 2
   }
 
-  IdNumberParser.CitizenShipEnum = {
+  RsaId.CitizenShipEnum = {
       SA_CITIZEN: 1,
       OTHER: 2
   }
@@ -113,13 +113,5 @@ function IdNumberParser(idNumber) {
 
 }
 
-id = new IdNumberParser('8001015009087')
-console.log(id.toString())
-if ( id.gender == IdNumberParser.GenderEnum.FEMALE)
-{
-  console.log("It's a girl")
-}
-else {
-  console.log("It's a boy")
 
-}
+module.exports = RsaId;
